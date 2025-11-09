@@ -23,44 +23,57 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/edt_email"
-        android:layout_width="260dp"
-        android:layout_height="48dp"
-        android:layout_marginBottom="460dp"
-        android:ems="10"
-        android:hint="E-mail"
-        android:inputType="textEmailAddress"
-        android:textColorHint="#EBEBEB"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <EditText
         android:id="@+id/edt_senha"
         android:layout_width="260dp"
         android:layout_height="48dp"
-        android:layout_marginBottom="380dp"
+        android:layout_marginBottom="356dp"
         android:ems="10"
         android:hint="Senha"
         android:inputType="textPassword"
         android:textColorHint="#EBEBEB"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintHorizontal_bias="0.509"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/edt_email"
+        android:layout_width="260dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="436dp"
+        android:ems="10"
+        android:hint="E-mail"
+        android:inputType="textEmailAddress"
+        android:textColorHint="#EBEBEB"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.509"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/btn_login"
         android:layout_width="260dp"
         android:layout_height="48dp"
-        android:layout_marginBottom="284dp"
+        android:layout_marginBottom="260dp"
         android:backgroundTint="#5698F9"
         android:text="Login"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:rippleColor="#B657D2" />
+
+    <Button
+        android:id="@+id/btn_login_google"
+        android:layout_width="259dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="27dp"
+        android:text="Google"
+        app:layout_constraintBottom_toTopOf="@+id/edt_email"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.513"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.184" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

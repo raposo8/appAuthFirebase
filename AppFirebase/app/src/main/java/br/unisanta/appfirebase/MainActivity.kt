@@ -7,11 +7,19 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import br.unisanta.appfirebase.databinding.ActivityMainBinding
+import com.firebase.ui.auth.AuthUI
+import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
+import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
 
 class MainActivity : AppCompatActivity() {
+    private val signInLauncher = registerForActivityResult(
+        FirebaseAuthUIActivityResultContract(),
+    ) { res ->
+        this.onSignInResult(res)
+    }
     private lateinit var binding: ActivityMainBinding
     private lateinit var auth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,13 +39,41 @@ class MainActivity : AppCompatActivity() {
             val email = binding.edtEmail.text.toString()
             val senha = binding.edtSenha.text.toString()
             auth.signInWithEmailAndPassword(email,senha).addOnCompleteListener{ task ->
-                    if (task.isSuccessful){
-                        Toast.makeText(this, "Sucesso!", Toast.LENGTH_SHORT).show()
-                        //aqui chamaria a intent (próx. tela)
-                    } else {
-                        Toast.makeText(this, "Login inválido: ${task.exception?.message}.", Toast.LENGTH_LONG).show()
-                    }
+                if (task.isSuccessful){
+                    Toast.makeText(this, "Sucesso!", Toast.LENGTH_SHORT).show()
+                    //aqui chamaria a intent (próx. tela)
+                } else {
+                    Toast.makeText(this, "Login inválido: ${task.exception?.message}.", Toast.LENGTH_LONG).show()
                 }
+            }
+        }
+
+        binding.btnLoginGoogle.setOnClickListener {
+            createSignInIntent()
+        }
+    }
+
+    private fun createSignInIntent() {
+        val providers = arrayListOf(
+            AuthUI.IdpConfig.EmailBuilder().build(),
+            AuthUI.IdpConfig.PhoneBuilder().build(),
+            AuthUI.IdpConfig.GoogleBuilder().build(),
+        )
+
+        val signInIntent = AuthUI.getInstance()
+            .createSignInIntentBuilder()
+            .setAvailableProviders(providers)
+            .build()
+        signInLauncher.launch(signInIntent)
+    }
+
+    private fun onSignInResult(result: FirebaseAuthUIAuthenticationResult) {
+        val response = result.idpResponse
+        if (result.resultCode == RESULT_OK) {
+            val user = FirebaseAuth.getInstance().currentUser
+            Toast.makeText(this, "Bem vindo, ${user?.displayName}", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(this, "Falha ao realizar login: ${response?.error?.errorCode}", Toast.LENGTH_SHORT).show()
         }
     }
 }
