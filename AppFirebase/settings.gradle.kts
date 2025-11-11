@@ -19,6 +19,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "AppFirebase"
+rootProject.name = "appFirebase"
 include(":app")
- 
